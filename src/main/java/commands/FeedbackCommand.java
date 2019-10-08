@@ -21,24 +21,29 @@ public class FeedbackCommand extends Command {
 
   @Override
   protected void execute(CommandEvent event) {
-    if (!event.getArgs().isEmpty()){
-      EmbedBuilder builder = new EmbedBuilder();
-      builder.setColor(event.getGuild().getSelfMember().getColor());
-      builder.setDescription(event.getArgs());
-      builder.setAuthor("Corvidae Feedback", null, event.getSelfUser().getAvatarUrl());
-      builder.setTimestamp(event.getEvent().getMessage().getTimeCreated());
-      List<TextChannel> list = FinderUtil.findTextChannels("feedback", event.getGuild());
-      TextChannel tc = list.get(0);
-      tc.sendMessage(builder.build()).queue(
-          m -> {
-            event.getMessage().delete().queue();
-            m.addReaction(Constants.THUMBSUP).queue();
-            m.addReaction(Constants.THUMBSDOWN).queue();
-          }
-      );
+    List<TextChannel> list = event.getGuild().getTextChannelsByName("feedback", true);
+    if (!list.isEmpty()) {
+      if (!event.getArgs().isEmpty()) {
+        EmbedBuilder builder = new EmbedBuilder();
+        builder.setColor(event.getGuild().getSelfMember().getColor());
+        builder.setDescription(event.getArgs());
+        builder.setAuthor("Corvidae Feedback", null, event.getSelfUser().getAvatarUrl());
+        builder.setTimestamp(event.getEvent().getMessage().getTimeCreated());
+        TextChannel tc = list.get(0);
+        tc.sendMessage(builder.build()).queue(
+            m -> {
+              event.getMessage().delete().queue();
+              m.addReaction(Constants.THUMBSUP).queue();
+              m.addReaction(Constants.THUMBSDOWN).queue();
+            }
+        );
+      } else {
+        event.reply("Usage: " + Constants.PREFIX + "feedback " + this.arguments);
+      }
     } else {
-      event.reply("Usage: " + Constants.PREFIX + "feedback " + this.arguments);
+      event.getGuild().createTextChannel("feedback").queue(
+          textChannel -> event.replyError("I have created the correct channel for you! Enjoy")
+      );
     }
   }
-
 }

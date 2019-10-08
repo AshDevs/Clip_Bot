@@ -5,7 +5,7 @@ import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import commands.FeedbackCommand;
 import config.Config;
 import config.PropertiesBasedLoader;
-import event.getClipsEvent;
+import event.ClipsEvent;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import javax.security.auth.login.LoginException;
@@ -35,7 +35,7 @@ public class Corvidae {
     new JDABuilder(AccountType.BOT)
         .setToken(config.bot_token)
         .addEventListeners(waiter)
-        .addEventListeners(new getClipsEvent())
+        .addEventListeners(new ClipsEvent())
         .addEventListeners(client.build())
         .build();
     System.out.println("Bot up and running!");
