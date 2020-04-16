@@ -1,6 +1,6 @@
 package event;
 
-import static bot.Corvidae.scheduler;
+import static bot.Clip_Bot.scheduler;
 import static util.ConnectTwitchAPI.twitchClipsData;
 import static util.ConnectTwitchAPI.twitchConnection;
 
@@ -26,7 +26,7 @@ public class ClipsEvent implements EventListener {
   public void onEvent(@Nonnull GenericEvent event) {
     if (event instanceof ReadyEvent) {
       Runnable getClips = () -> {
-        String team_data = twitchConnection("teams/corvidaeinc");
+        String team_data = twitchConnection("teams/wgd");
         Guild guild = event.getJDA().getGuildById(event.getJDA().getGuilds().get(0).getIdLong());
         List<TextChannel> list = Objects.requireNonNull(guild)
             .getTextChannelsByName("highlights", true);
@@ -53,7 +53,7 @@ public class ClipsEvent implements EventListener {
               builder.setFooter(curator.getString("display_name"), curator.getString("logo"));
               builder.setThumbnail(broadcaster.getString("logo"));
               builder
-                  .setAuthor("Corvidae Inc.", null, event.getJDA().getSelfUser().getAvatarUrl());
+                  .setAuthor("Rowey Daddy.", null, event.getJDA().getSelfUser().getAvatarUrl());
               builder.addField("Clip Title", clip.getString("title"), false);
               builder.addField("Game", clip.getString("game"), false);
               builder
@@ -72,9 +72,10 @@ public class ClipsEvent implements EventListener {
           .getTextChannelsByName("highlights", true);
       if (list.isEmpty()) {
         guild.createTextChannel("highlights").queue(
-            e -> scheduler.scheduleWithFixedDelay(getClips, 0, 24 * 60, TimeUnit.MINUTES)
+            e -> scheduler.scheduleWithFixedDelay(getClips, 0, 24, TimeUnit.HOURS)
         );
       }
+      scheduler.scheduleWithFixedDelay(getClips, 0, 24, TimeUnit.HOURS);
     }
   }
 }

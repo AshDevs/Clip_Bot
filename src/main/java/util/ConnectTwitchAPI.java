@@ -4,7 +4,7 @@ import kong.unirest.Unirest;
 
 public class ConnectTwitchAPI {
 
-  private static final String twitchAPI_ClientID = "v4wu5hdibg8aifmjxeer5pj35n9lwf";
+  private static final String twitchAPI_ClientID = "20dspkkdh2nwlet07s9vm9zt3f8vg1";
   private static String V5APILink = "https://api.twitch.tv/kraken/";
   private static String NewAPILink = "https://api.twitch.tv/helix/";
 

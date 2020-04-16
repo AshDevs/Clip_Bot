@@ -9,6 +9,6 @@ public class Constants {
   public static final String SUCCESS = "\u2705";
   public static final String WARNING = "\u2757";
   public static final String ERROR = "\u274C";
-  public static final String TWITCH = "https://www.twitch.tv/team/corvidaeinc";
+  public static final String TWITCH = "https://www.twitch.tv/team/wgd";
 
 }

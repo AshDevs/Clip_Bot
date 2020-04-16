@@ -1,4 +1,2 @@
-# Corvidae
-Corvidae's discord bot, made by HardlyAPro#0001
-
-This bot allows users to give feed back privatly and will also get the stream teams clips for the last 24 hours and post them into a chat channel.
+# Clip Bot
+A bot that gets your teams clips from twitch and posts them into discord every 24 hours from bot start up
